@@ -125,3 +125,15 @@ footer {
     line-height: 1.5;
   }
 }
+
+.developer-link {
+  color: var(--wsu-gold);
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.developer-link:hover {
+  color: var(--white);
+  text-decoration: underline;
+}

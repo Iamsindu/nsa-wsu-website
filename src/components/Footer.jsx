@@ -64,7 +64,17 @@ function Footer() {
             </div>
 
             <div className="footer-bottom">
-                <p>Developed by Sindhu Aryal</p>
+                <p>
+                    Developed by{" "}
+                    <a
+                        href="https://www.sindhuaryal.com.np"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="developer-link"
+                    >
+                        Sindhu Aryal
+                    </a>
+                </p>
                 <p>© 2026 NSA at Wright State University. All rights reserved.</p>
             </div>
         </footer>

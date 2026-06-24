@@ -1,0 +1,104 @@
+.team-year {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--wsu-green);
+  margin-bottom: 14px;
+}
+
+.team-description {
+  font-size: 20px;
+  color: #555;
+  line-height: 1.7;
+}
+
+.team-section {
+  margin-bottom: 60px;
+}
+
+.advisor-grid {
+  max-width: 360px;
+  margin: 0 auto;
+}
+.team-section h2 {
+  color: var(--wsu-green);
+  margin-bottom: 30px;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 28px;
+}
+
+.team-card {
+  background: white;
+  padding: 28px 24px;
+  border-radius: 18px;
+  border-top: 5px solid var(--nepal-red);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+  transition: 0.25s ease;
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
+}
+
+.team-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.team-card.clickable {
+  cursor: pointer;
+}
+
+.team-card.clickable:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.14);
+}
+
+ .team-photo {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 50%;
+  margin: 0 auto 18px;
+  display: block;
+  border: 4px solid var(--wsu-gold);
+  background: #f7f7f7;
+}
+
+.team-card h3 {
+  margin: 10px 0 8px;
+  font-size: 22px;
+  color:var(--nepal-blue);
+}
+
+.team-card h4 {
+  color: var(--wsu-gold);
+  margin: 0 0 14px;
+  font-size: 16px;
+}
+
+.team-card p{
+ font-size: 14px;
+}
+
+.team-card a {
+  color: #555;
+  text-decoration: none;
+  font-size: 14px;
+  word-break: break-word;
+}
+
+.team-card a:hover {
+  color: var(--wsu-green);
+}
+
+@media (max-width: 768px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+}

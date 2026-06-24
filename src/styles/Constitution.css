@@ -1,17 +1,12 @@
 .constitution-card {
   max-width: 1000px;
   margin: 0 auto;
-  background: var(--white);
   padding: 28px;
-  border-radius: 16px;
-  border-top: 5px solid var(--nepal-red);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
 }
 
 .constitution-card h2 {
   color: var(--nepal-blue);
   margin: 0 0 24px;
-  font-size: 28px;
 }
 
 .pdf-viewer {
