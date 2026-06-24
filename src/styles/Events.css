@@ -1,0 +1,137 @@
+.events-title {
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--wsu-green);
+  margin-bottom: 14px;
+}
+
+.events-description {
+  max-width: 850px;
+  margin: 0 auto;
+  color: #555;
+}
+
+.events-section {
+  margin-bottom: 64px;
+}
+
+.events-section h2 {
+  color: var(--wsu-green);
+  margin-bottom: 28px;
+}
+.signature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
+.past-events-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  align-items: stretch;
+}
+
+@media (max-width: 1024px) {
+  .past-events-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .signature-grid,
+  .past-events-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.event-card {
+  text-align: left;
+  height: 100%;
+}
+
+.event-label {
+  color: var(--nepal-red);
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.event-card h3 {
+  color: var(--nepal-blue);
+  font-size: 24px;
+  margin: 0 0 8px;
+  width: 200px;
+}
+
+.event-date {
+  color: var(--wsu-gold);
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.event-gallery-links {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.event-gallery-links a {
+  color: var(--wsu-green);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.event-gallery-links a:hover {
+  color: var(--nepal-red);
+  text-decoration: underline;
+}
+
+.event-link {
+  display: inline-block;
+  margin-top: 18px;
+  color: var(--wsu-green);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.event-link:hover {
+  color: var(--nepal-red);
+  text-decoration: underline;
+}
+
+.upcoming-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.upcoming-list span {
+  background: var(--white);
+  border: 1px solid var(--wsu-gold);
+  color: var(--wsu-green);
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.more-events {
+  margin-top: 24px;
+  color: #555;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .events-title {
+    font-size: 28px;
+  }
+}

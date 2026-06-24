@@ -1,0 +1,63 @@
+.contact-title {
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--wsu-green);
+  margin-bottom: 14px;
+}
+
+.contact-description {
+  max-width: 800px;
+  margin: 0 auto;
+  color: #555;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
+.contact-card {
+  text-align: left;
+}
+
+.contact-card h2 {
+  color: var(--wsu-green);
+  margin-bottom: 24px;
+}
+
+.contact-item,
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  font-size: 18px;
+}
+
+.contact-item svg,
+.social-link svg {
+  color: var(--wsu-gold);
+  font-size: 22px;
+}
+
+.contact-item a,
+.social-link {
+  color: var(--nepal-blue);
+  text-decoration: none;
+}
+
+.social-link:hover,
+.contact-item a:hover {
+  color: var(--nepal-red);
+}
+
+@media (max-width: 768px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-title {
+    font-size: 28px;
+  }
+}
