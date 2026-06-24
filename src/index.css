@@ -1,0 +1,32 @@
+:root {
+  --wsu-green: #046033;
+  --wsu-dark-green: #0f3e1f;
+  --wsu-gold: #cea052;
+  --off-white: #f7f7f7;
+
+  --nepal-red: #dc143c;
+  --nepal-blue: #003893;
+
+  --white: #ffffff;
+  --black: #2e2d29;
+
+  font-family: Arial, sans-serif;
+  color: var(--black);
+  background: var(--off-white);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+  width: 100%;
+}
+
+body {
+  background: var(--off-white);
+}

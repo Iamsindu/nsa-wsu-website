@@ -1,0 +1,16 @@
+main {
+  max-width: 1000px;
+  margin: 90px auto;
+  padding: 0 24px;
+  text-align: center;
+}
+
+h1 {
+  color: #003f73;
+  font-size: 44px;
+}
+
+p {
+  font-size: 20px;
+  line-height: 1.6;
+}
