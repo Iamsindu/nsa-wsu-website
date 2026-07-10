@@ -1,7 +1,4 @@
 <div align="center">
-
-<img src="public/images/logo.png" alt="NSA WSU Logo" width="150"/>
-
 # 🇳🇵 Nepalese Student Association
 
 ### Wright State University
@@ -28,15 +25,15 @@ Our goal is to provide a modern, accessible, and welcoming platform where studen
 
 ## Features
 
-- 🏠 Modern responsive homepage
-- 👥 Executive Board & Committee
-- 📅 Upcoming and Past Events
-- 🎉 Signature Events
-- 📸 Event Galleries
-- 📜 Constitution
-- 📞 Contact Page
-- 📱 Mobile-first responsive design
-- ⚡ Fast deployment with Netlify
+- Modern responsive homepage
+- Executive Board & Committee
+- Upcoming and Past Events
+- Signature Events
+- Event Galleries
+- Constitution
+- Contact Page
+- Mobile-first responsive design
+- Deployment with Netlify
 
 ---
 
@@ -90,8 +87,6 @@ npm run build
 public/
 │
 ├── images/
-├── documents/
-└── favicon/
 
 src/
 │
@@ -144,16 +139,15 @@ git push origin feature/your-feature-name
 
 ---
 
-## Roadmap
+## Future Enhancements
 
+- [ ] Individual Events Page
+- [ ] Volunteer Forms
 - [ ] Alumni Page
 - [ ] Membership Registration
-- [ ] Event Calendar
+- [ ] Events Calendar
 - [ ] Sponsor & Partner Page
 - [ ] Newsletter Subscription
-- [ ] Search Functionality
-- [ ] Accessibility Improvements
-- [ ] Performance Optimization
 
 ---
 
@@ -173,14 +167,14 @@ Special thanks to every NSA member, volunteer, and the Wright State University c
 
 ## Connect With Us
 
-🌐 Website  
+Website  
 https://nsa-wsu.netlify.app/
 
-📸 Instagram  
+Instagram  
 https://www.instagram.com/nsa_wsu/
 
-📘 Facebook  
-https://www.facebook.com/nsawsu/
+Tiktok  
+https://www.tiktok.com/@nsa.wsu
 
 ---
 
