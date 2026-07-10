@@ -28,7 +28,7 @@ function Contact() {
                 </Card>
 
                 <Card className="contact-card">
-                    <h2>Follow Us</h2>
+                    <h2>Stay Connected</h2>
 
                     <a
                         href="https://www.instagram.com/nsa_wsu"

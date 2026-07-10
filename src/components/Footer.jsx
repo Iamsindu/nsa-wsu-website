@@ -34,7 +34,7 @@ function Footer() {
                 </div>
 
                 <div className="footer-section">
-                    <h3>Follow us</h3>
+                    <h3>Follow Our Journey</h3>
 
 
                     <a href="mailto:nsa-wsu@raidermail.wright.edu">
@@ -65,7 +65,7 @@ function Footer() {
 
             <div className="footer-bottom">
                 <p>
-                    Developed by{" "}
+                    Designed and developed with ❤️ by {" "}
                     <a
                         href="https://www.sindhuaryal.com.np"
                         target="_blank"

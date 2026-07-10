@@ -11,7 +11,12 @@ function Navbar() {
 
     return (
         <nav className="navbar">
-            <div className="nav-brand">🇳🇵 NSA WSU</div>
+            <NavLink to="/" style={{ textDecoration: 'none' }}>
+                <div className="nav-brand">
+                    <span style={{ color: '#dc143c' }}>NSA </span>
+                    <span style={{ color: '#cea052' }}>WSU</span>
+                </div>
+            </NavLink>
 
             <button
                 className="hamburger"
