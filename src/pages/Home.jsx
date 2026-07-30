@@ -124,11 +124,7 @@ function Home() {
             <section className="journey">
                 <div className="journey-content">
                     <div className="journey-text">
-
-                        <p className="section-label">
-                            JOIN OUR COMMUNITY
-                        </p>
-
+                        <span className="section-label">JOIN OUR COMMUNITY</span>
                         <h2>Your Journey Starts Here</h2>
 
                         <p>
@@ -145,7 +141,7 @@ function Home() {
                         </p>
 
                         <div className="journey-buttons">
-                            <a href="#" className="primary-btn">
+                            <a href="https://wright.campuslabs.com/engage/organization/nsa" target="_blank" className="primary-btn">
                                 Become a Member
                             </a>
 

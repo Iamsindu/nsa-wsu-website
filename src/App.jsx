@@ -10,6 +10,9 @@ import Events from "./pages/Events"
 import Contact from "./pages/Contact"
 import "./App.css"
 import Footer from "./components/Footer"
+import Updates from "./pages/Updates"
+import NewsDetail from "./pages/UpdateDetails"
+import EventDetail from "./pages/EventDetails"
 
 function App() {
   return (
@@ -21,7 +24,10 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/constitution" element={<Constitution />} />
         <Route path="/team" element={<Team />} />
+        <Route path="/news" element={<Updates />} />
+        <Route path="/news/:slug" element={<NewsDetail />} />
         <Route path="/events" element={<Events />} />
+        <Route path="/events/:slug" element={<EventDetail />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
 
