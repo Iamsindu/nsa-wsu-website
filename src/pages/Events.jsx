@@ -1,6 +1,7 @@
 import { signatureEvents, pastEvents, upcomingEvents } from "../data/eventsData"
 import Card from "../components/Card"
 import "../styles/Events.css"
+import { Link } from "react-router-dom"
 
 function Events() {
     return (
@@ -34,6 +35,9 @@ function Events() {
                                     </a>
                                 ))}
                             </div>
+                            <Link to={`/events/${event.slug}`} className="event-card-link">
+                                Learn More →
+                            </Link>
                         </Card>
                     ))}
                 </div>
@@ -44,7 +48,6 @@ function Events() {
                 <div className="past-events-grid">
                     {pastEvents.map((event) => (
                         <Card key={event.title} className="event-card">
-                            {/* <p className="event-label">{event.type}</p> */}
                             <h3>{event.title}</h3>
                             <p className="event-date">{event.date}</p>
                             <p>{event.description}</p>

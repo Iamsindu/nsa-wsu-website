@@ -29,9 +29,10 @@ function Navbar() {
             <div className={`nav-links ${isOpen ? "open" : ""}`}>
                 <NavLink to="/" end onClick={closeMenu}>Home</NavLink>
                 <NavLink to="/about" onClick={closeMenu}>About</NavLink>
-                <NavLink to="/constitution" onClick={closeMenu}>Constitution</NavLink>
                 <NavLink to="/team" onClick={closeMenu}>Team</NavLink>
                 <NavLink to="/events" onClick={closeMenu}>Events</NavLink>
+                <NavLink to="/news" onClick={closeMenu}>Updates</NavLink>
+                <NavLink to="/constitution" onClick={closeMenu}>Constitution</NavLink>
                 <NavLink to="/contact" onClick={closeMenu}>Contact</NavLink>
             </div>
         </nav>

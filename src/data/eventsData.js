@@ -1,6 +1,7 @@
 export const signatureEvents = [
     {
         title: "Naya Barsha",
+        slug: "new-year",
         season: "Spring Semester",
         time: "Around April",
         image: "/events/naya-barsha.jpg",
@@ -13,13 +14,17 @@ export const signatureEvents = [
                 year: "2025",
                 link: "https://www.instagram.com/p/DKKvq6IywiL/",
             },
+            {
+                year: "2026",
+                link: "https://www.instagram.com/p/DX7dv0DmfoC",
+            },
         ],
         description:
             "Naya Barsha, often celebrated as Nepalese Night, is one of the most vibrant and cherished signature events of NSA WSU, held to celebrate the Nepali New Year. For many Nepali students studying far from home, this celebration carries deep emotional meaning. Through cultural performances, music, dance, delicious Nepali food, and heartfelt conversations, we transform campus into a little piece of Nepal filled with joy, belonging, and togetherness.",
     },
-
     {
         title: "Dashain",
+        slug: "dashain",
         season: "Fall Semester",
         time: "Around September / October",
         image: "/events/dashain.jpg",
@@ -49,6 +54,7 @@ export const pastEvents = [
     {
         image: "/images/events/bhetghat-2026.jpg",
         title: "Bhetghat’83",
+        slug: "bhetghat-83",
         type: "Hosted Event",
         date: "March 23, 2026",
         location: "Student Union Atrium",
@@ -60,6 +66,7 @@ export const pastEvents = [
     {
         image: "/images/events/2083.jpg",
         title: "Naya Barsha’83",
+        slug: "new-year-83",
         type: "Hosted Event",
         date: "April 21, 2026",
         location: "Student Union Atrium",

@@ -54,7 +54,7 @@ export const coreTeam = [
         name: "Ridima Shrestha",
         email: "shrestha.238@wright.edu",
         position: "Event Coordinator",
-        image: "/team/sindhu.png",
+        image: "/team/ridhima.png",
     },
     {
         name: "Sumegha Koirala",

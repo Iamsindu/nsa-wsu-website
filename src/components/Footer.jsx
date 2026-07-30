@@ -25,10 +25,9 @@ function Footer() {
                 <div className="footer-section">
                     <h3>Get Involved</h3>
 
-                    <a href="#" target="_blank">Program Suggestion Form</a>
-                    <a href="#" target="_blank">Feedback Form</a>
-                    <a href="#" target="_blank">Volunteer Form</a>
-
+                    <a href="https://forms.gle/491MqeU1enDCF2K86" target="_blank">Program Suggestion Form</a>
+                    <a href="https://forms.gle/dBsDGVaive1gaHTQ9" target="_blank">Dashain '83 Volunteer Form</a>
+                    <a href="https://forms.gle/sKqicYQ9C7HwJXuK6" target="_blank">Dashain '83 Performers Form</a>
                     <br />
 
                 </div>
