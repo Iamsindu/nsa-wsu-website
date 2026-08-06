@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { updates, upcomingDeadlines } from "../data/updates";
 import "../styles/Updates.css";
+import { getCurrentDate } from "../utils/date";
 
 function formatUpdateDate(date) {
     const updateDate = new Date(`${date}T00:00:00`);
@@ -58,6 +59,8 @@ function Updates() {
         (update) => update.id !== featuredUpdate?.id
     );
 
+    const currentDate = getCurrentDate();
+
     return (
         <main className="updates-page">
             <section className="updates-page-header">
@@ -73,8 +76,8 @@ function Updates() {
                     </div>
 
                     <div className="updates-header-date">
-                        <span>Wednesday</span>
-                        <strong>29 July, 2026</strong>
+                        <span>{currentDate.weekday}</span>
+                        <strong>{currentDate.date}</strong>
                     </div>
                 </div>
             </section>
