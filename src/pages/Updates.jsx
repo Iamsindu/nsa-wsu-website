@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
-import { updates, upcomingDeadlines } from "../data/updates";
+import { upcomingDeadlines } from "../data/updates";
 import "../styles/Updates.css";
 import { getCurrentDate } from "../utils/date";
+import { useEffect, useState } from "react";
+import { getUpdates } from "../services/updateService";
 
 function formatUpdateDate(date) {
     const updateDate = new Date(`${date}T00:00:00`);
@@ -48,8 +50,29 @@ function UpdateLink({
 }
 
 function Updates() {
+    const currentDate = getCurrentDate();
+
+    const [updates, setUpdates] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState("")
+
+    useEffect(() => {
+        async function loadUpdates() {
+            try {
+                const data = await getUpdates()
+                setUpdates(data)
+            } catch (err) {
+                setError(err.message)
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        loadUpdates()
+    }, [])
+
     const featuredUpdate =
-        updates.find((update) => update.featured) || updates[0];
+        updates.find((update) => update.featured) || updates[0]
 
     const headlineUpdates = updates
         .filter((update) => update.id !== featuredUpdate?.id)
@@ -59,7 +82,13 @@ function Updates() {
         (update) => update.id !== featuredUpdate?.id
     );
 
-    const currentDate = getCurrentDate();
+    if (loading) {
+        return <p>Loading updates...</p>
+    }
+
+    if (error) {
+        return <p>{error}</p>
+    }
 
     return (
         <main className="updates-page">

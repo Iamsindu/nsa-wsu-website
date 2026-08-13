@@ -1,32 +1,58 @@
 import { Link, useParams } from "react-router-dom";
-import { updates } from "../data/updates";
 import "../styles/UpdateDetails.css";
+import { useEffect, useState } from "react";
+import { getUpdateBySlug } from "../services/updateService";
 
-function formatDate(date) {
-    return new Date(`${date}T00:00:00`).toLocaleDateString("en-US", {
+export function formatDate(date) {
+    return new Date(date).toLocaleDateString("en-US", {
+        year: "numeric",
         month: "long",
         day: "numeric",
-        year: "numeric",
     });
 }
 
 function NewsDetail() {
     const { slug } = useParams();
+    const [update, setUpdate] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
 
-    const update = updates.find((item) => item.slug === slug);
+    useEffect(() => {
+        async function loadUpdateBySlug() {
+            try {
+                const data = await getUpdateBySlug(slug)
+                setUpdate(data)
+            } catch (err) {
+                setError(err.message)
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        loadUpdateBySlug()
+    }, [])
+
+    if (loading) {
+        return <p>Loading updates...</p>
+    }
+    if (error) {
+        return <p>{error}</p>
+    }
 
     if (!update) {
         return (
-            <main className="news-detail-not-found">
+            <>
                 <h1>Update Not Found</h1>
                 <Link to="/news">Back to Updates</Link>
-            </main>
-        );
+            </>
+        )
     }
 
-    const relatedUpdates = updates
-        .filter((item) => item.slug !== update.slug)
-        .slice(0, 4);
+    // const relatedUpdates = update
+    //     .filter((item) => item.slug !== update.slug)
+    //     .slice(0, 4);
+
+    console.log(update);
 
     return (
         <main className="news-detail-page">
@@ -46,30 +72,28 @@ function NewsDetail() {
 
                             {update.subtitle && (
                                 <p className="news-article-subtitle">
-                                    {update.subtitle}
+                                    {update.summary}
                                 </p>
                             )}
 
                             <div className="news-article-meta">
-                                <span>By NSA WSU</span>
-                                <span>{formatDate(update.date)}</span>
+                                <span>{update.author_name}</span>
+                                <span>{formatDate(update.published_at)}</span>
                             </div>
                         </header>
 
-                        {update.image && (
+                        {update.image_url && (
                             <figure className="news-detail-image">
-                                <img src={update.image} alt={update.title} />
+                                <img src={update.image_url} alt={update.title} />
 
-                                {update.imageCaption && (
-                                    <figcaption>{update.imageCaption}</figcaption>
+                                {update.image_caption && (
+                                    <figcaption>{update.image_caption}</figcaption>
                                 )}
                             </figure>
                         )}
 
                         <div className="news-detail-content">
-                            {update.content?.map((paragraph, index) => (
-                                <p key={index}>{paragraph}</p>
-                            ))}
+                            {update.content}
                         </div>
                     </article>
 
@@ -80,7 +104,7 @@ function NewsDetail() {
                         </div>
 
                         <div className="news-detail-headlines">
-                            {relatedUpdates.map((item) => {
+                            {/* {relatedUpdates.map((item) => {
                                 const date = new Date(`${item.date}T00:00:00`);
 
                                 const month = date
@@ -114,7 +138,7 @@ function NewsDetail() {
                                         </div>
                                     </article>
                                 );
-                            })}
+                            })} */}
                         </div>
                     </aside>
                 </div>
