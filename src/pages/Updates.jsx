@@ -90,26 +90,6 @@ function Updates() {
         return <p>{error}</p>
     }
 
-    //     id
-    // title
-    // slug
-    // category
-    // summary
-    // content
-
-    // image_url
-    // image_caption
-
-    // featured
-
-    // author
-
-    // published
-    // published_at
-
-    // created_at
-    // updated_at
-
     return (
         <main className="updates-page">
             <section className="updates-page-header">
