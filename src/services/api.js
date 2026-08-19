@@ -1,9 +1,15 @@
-const API_BASE_URL = "http://127.0.0.1:5050/api";
+// const API_BASE_URL = "http://127.0.0.1:5050/api";
+const API_BASE_URL = "http://localhost:5050/api";
 
 async function request(endpoint, options = {}) {
+    const isFormData = options.body instanceof FormData;
+
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+        credentials: "include",
         headers: {
-            "Content-Type": "application/json",
+            ...(isFormData
+                ? {}
+                : { "Content-Type": "application/json" }),
             ...options.headers,
         },
         ...options,

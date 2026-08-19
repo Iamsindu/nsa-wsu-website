@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { findAdminByEmail } from "../models/adminModel.js";
+import { findAdminByEmail, findAdminById } from "../models/adminModel.js";
 
 export async function loginAdmin(req, res) {
     try {
@@ -60,6 +60,13 @@ export async function loginAdmin(req, res) {
             }
         );
 
+        res.cookie("authToken", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            maxAge: 24 * 60 * 60 * 1000,
+        });
+
         // Return token + admin information
         return res.status(200).json({
             success: true,
@@ -82,4 +89,49 @@ export async function loginAdmin(req, res) {
             message: "Internal server error",
         });
     }
+}
+
+export async function getCurrentAdmin(req, res) {
+    try {
+        const admin = await findAdminById(req.admin.id);
+        if (!admin) {
+            return res.status(404).json({
+                success: false,
+                message: "Admin not found.",
+            });
+        }
+
+        if (!admin.is_active) {
+            return res.status(403).json({
+                success: false,
+                message: "Your account is inactive.",
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            admin,
+        });
+
+    } catch (error) {
+        console.error("Get current admin error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error",
+        });
+    }
+}
+
+export function logoutAdmin(req, res) {
+    res.clearCookie("authToken", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+    });
+
+    return res.status(200).json({
+        success: true,
+        message: "Logout successful.",
+    });
 }

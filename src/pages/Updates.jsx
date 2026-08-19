@@ -41,7 +41,7 @@ function UpdateLink({
 
     return (
         <Link
-            to={`/news/${update.slug}`}
+            to={`/updates/${update.slug}`}
             className={className}
         >
             {children}

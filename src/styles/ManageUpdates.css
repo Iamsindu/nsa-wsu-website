@@ -1,0 +1,144 @@
+.manage-updates {
+    padding: 32px 40px;
+}
+
+.manage-updates-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 36px;
+}
+
+.manage-updates-header h1 {
+    margin: 0 0 8px;
+    color: #064b7f;
+    font-size: 36px;
+}
+
+.manage-updates-header p {
+    margin: 0;
+    color: #666;
+}
+
+.create-update-btn {
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    background: #046033;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.updates-table-container {
+    overflow-x: auto;
+    background: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+}
+
+.updates-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.updates-table th,
+.updates-table td {
+    padding: 16px 18px;
+    text-align: left;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.updates-table th {
+    background: #f7f8f7;
+    color: #333;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.update-title-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.update-title-cell strong {
+    color: #222;
+}
+
+.update-title-cell span {
+    max-width: 400px;
+    color: #777;
+    font-size: 13px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-badge.published {
+    background: #e7f6ed;
+    color: #046033;
+}
+
+.status-badge.draft {
+    background: #f2f2f2;
+    color: #666;
+}
+
+.update-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.icon-action {
+    width: 34px;
+    height: 34px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 7px;
+    background: #ffffff;
+
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.icon-action.edit {
+    border: 1px solid #046033;
+    color: #046033;
+}
+
+.icon-action.edit:hover {
+    background: #046033;
+    color: #ffffff;
+}
+
+.icon-action.delete {
+    border: 1px solid #c93b3b;
+    color: #c93b3b;
+}
+
+.icon-action.delete:hover {
+    background: #c93b3b;
+    color: #ffffff;
+}
+
+.no-updates {
+    padding: 40px !important;
+    text-align: center !important;
+    color: #777;
+}
