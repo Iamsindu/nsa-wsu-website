@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { signatureEvents } from "../data/eventsData"
 import "../styles/EventDetail.css";
+import { EVENTS } from "../constants/route";
 
 function formatEventDate(date) {
     return new Date(`${date}T00:00:00`).toLocaleDateString("en-US", {
@@ -22,7 +23,7 @@ function EventDetail() {
                 <h1>Event Not Found</h1>
                 <p>The event you are looking for does not exist.</p>
 
-                <Link to="/events">
+                <Link to={EVENTS}>
                     Back to Events
                 </Link>
             </main>
@@ -36,7 +37,7 @@ function EventDetail() {
     return (
         <main className="event-detail-page">
             <div className="event-detail-container">
-                <Link to="/events" className="event-detail-back">
+                <Link to={EVENTS} className="event-detail-back">
                     ← Back to Events
                 </Link>
 

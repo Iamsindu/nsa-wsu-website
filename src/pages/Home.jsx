@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import "../styles/Home.css"
 import { pastEvents } from "../data/eventsData";
+import { ABOUT, EVENTS } from "../constants/route";
 
 function Home() {
     return (
@@ -26,11 +27,11 @@ function Home() {
                     </p>
 
                     <div className="hero-buttons">
-                        <Link to="/about" className="primary-btn">
+                        <Link to={ABOUT} className="primary-btn">
                             Learn More
                         </Link>
 
-                        <Link to="/events" className="secondary-btn">
+                        <Link to={EVENTS} className="secondary-btn">
                             View Events
                         </Link>
                     </div>
@@ -110,7 +111,7 @@ function Home() {
                                 </p>
 
                                 <Link
-                                    to="/events"
+                                    to={EVENTS}
                                     className="home-about-link"
                                 >
                                     Learn More →

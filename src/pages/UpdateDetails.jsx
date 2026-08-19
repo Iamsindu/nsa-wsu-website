@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import "../styles/UpdateDetails.css";
 import { useEffect, useState } from "react";
 import { getUpdateBySlug } from "../services/updateService";
+import { UPDATES } from "../constants/route";
 
 export function formatDate(date) {
     return new Date(date).toLocaleDateString("en-US", {
@@ -43,7 +44,7 @@ function NewsDetail() {
         return (
             <>
                 <h1>Update Not Found</h1>
-                <Link to="/news">Back to Updates</Link>
+                <Link to={UPDATES}>Back to Updates</Link>
             </>
         )
     }
@@ -57,7 +58,7 @@ function NewsDetail() {
     return (
         <main className="news-detail-page">
             <div className="news-detail-container">
-                <Link to="/news" className="news-detail-back">
+                <Link to={UPDATES} className="news-detail-back">
                     ← Back to Updates
                 </Link>
 

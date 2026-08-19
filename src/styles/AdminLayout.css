@@ -1,0 +1,146 @@
+.admin-layout {
+    min-height: 100vh;
+    display: flex;
+    background: #f6f8f6;
+}
+
+.admin-sidebar {
+    width: 260px;
+    min-height: 100vh;
+    background: #0f3e1f;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding: 28px 20px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.admin-main {
+    flex: 1;
+    margin-left: 260px;
+    min-height: 100vh;
+}
+
+.admin-header {
+    height: 72px;
+    background: #ffffff;
+    border-bottom: 1px solid #e4e9e5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.admin-content {
+   margin: 0px auto;
+    text-align: left;
+    padding: 50px 0;
+    max-width: 1350px;
+}
+
+.admin-sidebar-brand {
+    margin-bottom: 36px;
+}
+
+.admin-sidebar-brand h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #cea052;
+}
+
+.admin-sidebar-brand span {
+    display: block;
+    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.85rem;
+}
+
+.admin-sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.admin-sidebar-nav a {
+    display: block;
+    padding: 11px 13px;
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.82);
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+.admin-sidebar-nav a:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+}
+
+.admin-sidebar-nav a.active {
+    background: #ffffff;
+    color: #0f3e1f;
+    font-weight: 700;
+}
+
+.admin-nav-section {
+    margin: 22px 0 6px;
+    color: #cea052;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+}
+
+.admin-sidebar-user {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.admin-sidebar-user p {
+    margin: 0;
+    font-weight: 600;
+}
+
+.admin-sidebar-user span {
+    display: block;
+    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.8rem;
+}
+
+@media (max-width: 900px) {
+    .admin-sidebar {
+        width: 220px;
+    }
+
+    .admin-main {
+        margin-left: 220px;
+    }
+}
+
+@media (max-width: 700px) {
+    .admin-sidebar {
+        position: static;
+        width: 100%;
+        min-height: auto;
+    }
+
+    .admin-layout {
+        flex-direction: column;
+    }
+
+    .admin-main {
+        margin-left: 0;
+    }
+
+    .admin-content {
+        padding: 20px;
+    }
+}

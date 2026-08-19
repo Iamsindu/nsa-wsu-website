@@ -1,21 +1,25 @@
 import "dotenv/config"
 import express from "express"
 import cors from "cors"
+import cookieParser from "cookie-parser";
 
 import { pool } from "./config/db.js"
 import authRoutes from "./routes/authRoutes.js"
 import updateRoutes from "./routes/updateRoutes.js"
+import adminUpdateRoutes from "./routes/adminUpdateRoutes.js"
 
 const app = express()
 const PORT = process.env.PORT || 5050
 
 app.use(
     cors({
-        origin: process.env.CLIENT_URL || "http://localhost:5173",
+        origin: process.env.CLIENT_URL,
+        credentials: true,
     })
-)
+);
 
 app.use(express.json())
+app.use(cookieParser());
 
 app.get("/api/health", async (req, res) => {
     try {
@@ -42,6 +46,7 @@ app.get("/api/health", async (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/updates", updateRoutes);
+app.use("/api/admin/updates", adminUpdateRoutes);
 
 app.use((req, res) => {
     res.status(404).json({
