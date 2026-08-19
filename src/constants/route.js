@@ -18,4 +18,9 @@ export const ADMIN_UPDATES = "/admin/updates";
 export const ADMIN_UPDATE_NEW = "/admin/updates/new";
 export const ADMIN_UPDATE_EDIT = "/admin/updates/:id/edit";
 
-export const ADMIN_TEAM = "/admin/team";    
+export const ADMIN_EVENTS = "/admin/events";
+
+export const ADMIN_TEAM = "/admin/team";
+export const ADMIN_ADMINLIST = "/admin/admins";
+export const ADMIN_GALLERY = "/admin/gallery";
+export const ADMIN_CONSTITUTION = "/admin/constitution";

@@ -1,40 +1,41 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
+import { ADMIN_ADMINLIST, ADMIN_CONSTITUTION, ADMIN_DASHBOARD, ADMIN_EVENTS, ADMIN_GALLERY, ADMIN_TEAM, ADMIN_UPDATES } from "../../constants/route.js";
 
 const menuItems = [
     {
         label: "Dashboard",
-        path: "/admin/dashboard",
+        path: ADMIN_DASHBOARD,
         roles: ["SUPER_ADMIN", "ADMIN", "CONTENT_MANAGER"],
     },
     {
         label: "Updates",
-        path: "/admin/updates",
+        path: ADMIN_UPDATES,
         roles: ["SUPER_ADMIN", "ADMIN", "CONTENT_MANAGER"],
     },
     {
         label: "Events",
-        path: "/admin/events",
+        path: ADMIN_EVENTS,
         roles: ["SUPER_ADMIN", "ADMIN", "CONTENT_MANAGER"],
     },
     {
         label: "Gallery",
-        path: "/admin/gallery",
+        path: ADMIN_GALLERY,
         roles: ["SUPER_ADMIN", "ADMIN", "CONTENT_MANAGER"],
     },
     {
         label: "Team",
-        path: "/admin/team",
+        path: ADMIN_TEAM,
         roles: ["SUPER_ADMIN", "ADMIN"],
     },
     {
         label: "Constitution",
-        path: "/admin/constitution",
+        path: ADMIN_CONSTITUTION,
         roles: ["SUPER_ADMIN", "ADMIN"],
     },
     {
         label: "Admins",
-        path: "/admin/admins",
+        path: ADMIN_ADMINLIST,
         roles: ["SUPER_ADMIN"],
     },
 ];
