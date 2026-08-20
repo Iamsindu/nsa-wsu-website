@@ -94,7 +94,9 @@ function NewsDetail() {
                         )}
 
                         <div className="news-detail-content">
-                            {update.content}
+                            {update.content.split("\n").map((paragraph, index) => (
+                                paragraph.trim() && <p key={index}>{paragraph}</p>
+                            ))}
                         </div>
                     </article>
 

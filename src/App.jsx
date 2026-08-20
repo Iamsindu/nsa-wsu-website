@@ -16,7 +16,7 @@ import AdminLayout from "./components/admin/AdminLayout"
 import PublicLayout from "./components/PublicLayout"
 import RoleProtectedRoute from "./components/admin/RoleProtectedRoute"
 import ManageUpdates from "./pages/admin/ManageUpdates"
-import CreateUpdate from "./pages/admin/CreateUpdate"
+import AdminUpdateForm from "./pages/admin/AdminUpdateForm"
 import ManageTeam from "./pages/admin/ManageTeam"
 import {
   ABOUT,
@@ -64,11 +64,13 @@ function App() {
         >
           <Route path={ADMIN_DASHBOARD} element={<AdminDashboard />} />
           <Route path={ADMIN_UPDATES} element={<ManageUpdates />} />
-          <Route path={ADMIN_UPDATE_NEW} element={<CreateUpdate />} />
+          <Route path={ADMIN_UPDATE_NEW} element={<AdminUpdateForm />} />
 
 
-          {/* <Route path="updates/edit/:id" element={<EditUpdate />} /> */}
-
+          <Route
+            path="updates/:id/edit"
+            element={<AdminUpdateForm />}
+          />
           <Route
             path={ADMIN_TEAM}
             element={

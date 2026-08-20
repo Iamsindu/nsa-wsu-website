@@ -2,22 +2,21 @@ import { useEffect, useState } from "react";
 import { getAdminUpdates } from "../../services/updateService.js";
 import { FaPen, FaTrash } from "react-icons/fa";
 import "../../styles/ManageUpdates.css";
-import { Link } from "react-router-dom";
-import { ADMIN_UPDATE_NEW } from "../../constants/route.js";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { ADMIN_UPDATE_EDIT, ADMIN_UPDATE_NEW } from "../../constants/route.js";
 
 
 function ManageUpdates() {
     const [updates, setUpdates] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         async function loadUpdates() {
             try {
                 const response = await getAdminUpdates();
-
-                console.log("Updates response:", response);
-
                 setUpdates(response.data);
             } catch (error) {
                 console.error("Failed to load updates:", error);
@@ -116,6 +115,11 @@ function ManageUpdates() {
                                                 className="icon-action edit"
                                                 aria-label={`Edit ${update.title}`}
                                                 title="Edit"
+                                                onClick={() =>
+                                                    navigate(
+                                                        ADMIN_UPDATE_EDIT.replace(":id", update.id)
+                                                    )
+                                                }
                                             >
                                                 <FaPen />
                                             </button>

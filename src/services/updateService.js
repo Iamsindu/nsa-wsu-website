@@ -32,3 +32,24 @@ export async function createUpdate(newsData) {
         body: data,
     });
 }
+
+export async function getAdminUpdateById(id) {
+    const response = await request(`/admin/updates/${id}`);
+
+    return response.data;
+}
+
+export async function updateUpdate(id, newsData) {
+    const data = new FormData();
+
+    Object.entries(newsData).forEach(([key, value]) => {
+        if (value !== null) {
+            data.append(key, value);
+        }
+    });
+
+    return request(`/admin/updates/${id}`, {
+        method: "PUT",
+        body: data,
+    });
+}
