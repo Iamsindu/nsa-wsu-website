@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 
 import {
@@ -18,73 +18,105 @@ import {
     Typography,
 } from "@mui/material";
 
-import { createUpdate } from "../../services/updateService.js";
+import { createUpdate, getAdminUpdateById, updateUpdate } from "../../services/updateService.js";
 import { updateSchema } from "../../validation/updateSchema.js";
+import { ADMIN_UPDATES } from "../../constants/route.js";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { CATEGORIES } from "../../constants/categories.js";
 
-// const validate = (values) => {
-//     const { error } = updateSchema.validate(values, {
-//         abortEarly: false,
-//     });
-
-//     if (!error) {
-//         return {};
-//     }
-
-//     const errors = {};
-
-//     error.details.forEach((detail) => {
-//         errors[detail.path[0]] = detail.message;
-//     });
-
-//     return errors;
-// };
-
-
-function CreateUpdate() {
+function AdminUpdateForm() {
+    const { id } = useParams();
     const navigate = useNavigate();
 
-    const formik = useFormik({
-        initialValues: {
-            title: "",
-            category: "",
-            summary: "",
-            content: "",
-            image: null,
-            imageCaption: "",
-            authorName: "",
-            authorTitle: "",
-            featured: false,
-            published: false,
-        },
+    const isEditMode = Boolean(id);
 
-        validationSchema: updateSchema,
-        // validate,
-        onSubmit: async (values, { setSubmitting, setStatus }) => {
+    const [update, setUpdate] = useState(null);
+    const [loadingUpdate, setLoadingUpdate] = useState(false);
+
+    useEffect(() => {
+        if (!id) return;
+        async function loadUpdate() {
             try {
-                await createUpdate(values);
-
-                navigate("/admin/updates");
+                setLoadingUpdate(true);
+                const data = await getAdminUpdateById(id);
+                setUpdate(data);
             } catch (error) {
-                setStatus(error.message);
+                console.error("Failed to load update:", error);
             } finally {
-                setSubmitting(false);
+                setLoadingUpdate(false);
             }
+        }
+
+        loadUpdate();
+    }, [id]);
+
+    const getUpdateValues = (update) => ({
+        title: update?.title || "",
+        category: update?.category || "",
+        summary: update?.summary || "",
+        content: update?.content || "",
+        image: update?.image || null,
+        imageCaption: update?.image_caption || "",
+        authorName: update?.author_name || "",
+        authorTitle: update?.author_title || "",
+        featured: update?.featured || false,
+        published: update?.published || false,
+    });
+
+    // const formik = useFormik({
+    //     initialValues: {
+    //         title: "",
+    //         category: "",
+    //         summary: "",
+    //         content: "",
+    //         image: null,
+    //         imageCaption: "",
+    //         authorName: "",
+    //         authorTitle: "",
+    //         featured: false,
+    //         published: false,
+    //     },
+
+    //     validationSchema: updateSchema,
+
+    //     onSubmit: async (values) => {
+    //         await createUpdate(values);
+    //         navigate(ADMIN_UPDATES);
+    //     },
+    // });
+
+    const formik = useFormik({
+        initialValues: getUpdateValues(update),
+        enableReinitialize: true,
+        validationSchema: updateSchema,
+        onSubmit: async (values) => {
+            if (isEditMode) {
+                await updateUpdate(id, values);
+                toast.success("News updated successfully");
+            } else {
+                await createUpdate(values);
+                toast.success("News created successfully");
+            }
+
+            navigate(ADMIN_UPDATES);
         },
     });
 
-
     const handleSaveDraft = async () => {
         await formik.setFieldValue("published", false);
-
         formik.handleSubmit();
     };
 
 
     const handlePublish = async () => {
         await formik.setFieldValue("published", true);
-
         formik.handleSubmit();
     };
+
+    if (isEditMode && loadingUpdate) {
+        return <p>Loading update...</p>;
+    }
 
 
     return (
@@ -97,18 +129,14 @@ function CreateUpdate() {
             }}
         >
             <Stack spacing={1} mb={4}>
-                <Typography
-                    variant="h4"
-                    fontWeight={700}
-                >
-                    Create Update
+                <Typography variant="h4">
+                    {isEditMode ? "Edit Update" : "Create Update"}
                 </Typography>
 
-                <Typography
-                    variant="body1"
-                    color="text.secondary"
-                >
-                    Create a new update for the NSA WSU website.
+                <Typography color="text.secondary">
+                    {isEditMode
+                        ? "Update the existing NSA WSU update."
+                        : "Create a new update for the NSA WSU website."}
                 </Typography>
             </Stack>
 
@@ -207,33 +235,11 @@ function CreateUpdate() {
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                 >
-                                    <MenuItem value="Campus Update">
-                                        Campus Update
-                                    </MenuItem>
-
-                                    <MenuItem value="NSA Announcement">
-                                        NSA Announcement
-                                    </MenuItem>
-
-                                    <MenuItem value="Immigration / Visa Update">
-                                        Immigration / Visa Update
-                                    </MenuItem>
-
-                                    <MenuItem value="Student Opportunity">
-                                        Student Opportunity
-                                    </MenuItem>
-
-                                    <MenuItem value="Event Recap">
-                                        Event Recap
-                                    </MenuItem>
-
-                                    <MenuItem value="Community News">
-                                        Community News
-                                    </MenuItem>
-
-                                    <MenuItem value="General">
-                                        General
-                                    </MenuItem>
+                                    {CATEGORIES.map((category) => (
+                                        <MenuItem key={category} value={category}>
+                                            {category}
+                                        </MenuItem>
+                                    ))}
                                 </Select>
 
                                 {formik.touched.category &&
@@ -551,4 +557,4 @@ function CreateUpdate() {
     );
 }
 
-export default CreateUpdate;
+export default AdminUpdateForm;

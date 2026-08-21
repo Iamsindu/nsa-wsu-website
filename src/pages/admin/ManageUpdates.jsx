@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
-import { getAdminUpdates } from "../../services/updateService.js";
+import { deleteUpdate, getAdminUpdates } from "../../services/updateService.js";
 import { FaPen, FaTrash } from "react-icons/fa";
 import "../../styles/ManageUpdates.css";
-import { Link } from "react-router-dom";
-import { ADMIN_UPDATE_NEW } from "../../constants/route.js";
+import { Link, useNavigate } from "react-router-dom";
+import { ADMIN_UPDATE_EDIT, ADMIN_UPDATE_NEW } from "../../constants/route.js";
+import { toast } from "react-toastify";
 
 
 function ManageUpdates() {
     const [updates, setUpdates] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         async function loadUpdates() {
             try {
                 const response = await getAdminUpdates();
-
-                console.log("Updates response:", response);
-
                 setUpdates(response.data);
             } catch (error) {
                 console.error("Failed to load updates:", error);
@@ -37,6 +37,25 @@ function ManageUpdates() {
     if (error) {
         return <p>{error}</p>;
     }
+
+
+    const handleDelete = async (id) => {
+        const confirmed = window.confirm(
+            "Are you sure you want to delete this update?"
+        );
+        if (!confirmed) {
+            return;
+        }
+        try {
+            await deleteUpdate(id);
+            setUpdates((current) =>
+                current.filter((update) => update.id !== id)
+            );
+            toast.success("Update deleted successfully.")
+        } catch (error) {
+            console.error("Delete update error:", error);
+        }
+    };
 
     return (
         <div className="manage-updates">
@@ -116,15 +135,20 @@ function ManageUpdates() {
                                                 className="icon-action edit"
                                                 aria-label={`Edit ${update.title}`}
                                                 title="Edit"
+                                                onClick={() =>
+                                                    navigate(
+                                                        ADMIN_UPDATE_EDIT.replace(":id", update.id)
+                                                    )
+                                                }
                                             >
                                                 <FaPen />
                                             </button>
-
                                             <button
                                                 type="button"
                                                 className="icon-action delete"
                                                 aria-label={`Delete ${update.title}`}
                                                 title="Delete"
+                                                onClick={() => handleDelete(update.id)}
                                             >
                                                 <FaTrash />
                                             </button>

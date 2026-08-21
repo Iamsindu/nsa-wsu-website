@@ -16,7 +16,7 @@ import AdminLayout from "./components/admin/AdminLayout"
 import PublicLayout from "./components/PublicLayout"
 import RoleProtectedRoute from "./components/admin/RoleProtectedRoute"
 import ManageUpdates from "./pages/admin/ManageUpdates"
-import CreateUpdate from "./pages/admin/CreateUpdate"
+import AdminUpdateForm from "./pages/admin/AdminUpdateForm"
 import ManageTeam from "./pages/admin/ManageTeam"
 import {
   ABOUT,
@@ -35,10 +35,13 @@ import {
   UPDATE_DETAILS,
   UPDATES
 } from "./constants/route"
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
     <BrowserRouter>
+      <ToastContainer />
       <Routes>
 
         <Route element={<PublicLayout />}>
@@ -64,11 +67,13 @@ function App() {
         >
           <Route path={ADMIN_DASHBOARD} element={<AdminDashboard />} />
           <Route path={ADMIN_UPDATES} element={<ManageUpdates />} />
-          <Route path={ADMIN_UPDATE_NEW} element={<CreateUpdate />} />
+          <Route path={ADMIN_UPDATE_NEW} element={<AdminUpdateForm />} />
 
 
-          {/* <Route path="updates/edit/:id" element={<EditUpdate />} /> */}
-
+          <Route
+            path="updates/:id/edit"
+            element={<AdminUpdateForm />}
+          />
           <Route
             path={ADMIN_TEAM}
             element={

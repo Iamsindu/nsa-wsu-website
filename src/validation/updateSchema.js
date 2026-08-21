@@ -1,53 +1,41 @@
-import Joi from "joi";
+import * as yup from "yup";
 
-export const updateSchema = Joi.object({
-    title: Joi.string()
+export const updateSchema = yup.object({
+    title: yup
+        .string()
         .trim()
-        .required()
-        .messages({
-            "string.empty": "Title is required.",
-            "any.required": "Title is required.",
-        }),
+        .required("Title is required."),
 
-    category: Joi.string()
+    category: yup
+        .string()
+        .required("Category is required."),
+
+    summary: yup
+        .string()
         .trim()
-        .required()
-        .messages({
-            "string.empty": "Category is required.",
-            "any.required": "Category is required.",
-        }),
+        .required("Summary is required."),
 
-    summary: Joi.string()
+    content: yup
+        .string()
         .trim()
-        .required()
-        .messages({
-            "string.empty": "Summary is required.",
-            "any.required": "Summary is required.",
-        }),
+        .required("Description is required."),
 
-    content: Joi.string()
-        .trim()
-        .required()
-        .messages({
-            "string.empty": "Description is required.",
-            "any.required": "Description is required.",
-        }),
+    image: yup
+        .mixed()
+        .nullable(),
 
-    image: Joi.any().allow(null),
+    imageCaption: yup
+        .string(),
 
-    imageCaption: Joi.string()
-        .allow("")
-        .optional(),
+    authorName: yup
+        .string(),
 
-    authorName: Joi.string()
-        .allow("")
-        .optional(),
+    authorTitle: yup
+        .string(),
 
-    authorTitle: Joi.string()
-        .allow("")
-        .optional(),
+    featured: yup
+        .boolean(),
 
-    featured: Joi.boolean(),
-
-    published: Joi.boolean(),
+    published: yup
+        .boolean(),
 });

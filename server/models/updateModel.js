@@ -20,6 +20,7 @@ export async function getPublishedUpdates() {
             updated_at
         FROM updates
         WHERE published = TRUE
+          AND is_archived = FALSE
         ORDER BY published_at DESC NULLS LAST, created_at DESC
     `)
 
@@ -128,3 +129,96 @@ export async function createUpdate({
     return result.rows[0];
 }
 
+export async function getAdminUpdateById(id) {
+    const result = await pool.query(
+        `
+        SELECT *
+        FROM updates
+        WHERE id = $1
+          AND is_archived = FALSE
+        `,
+        [id]
+    );
+
+    return result.rows[0];
+}
+
+export async function updateAdminUpdate(
+    id,
+    {
+        title,
+        slug,
+        category,
+        summary,
+        content,
+        imageUrl,
+        imageCaption,
+        authorName,
+        authorTitle,
+        featured,
+        published,
+        publishedAt,
+        updatedBy,
+    }
+) {
+    const result = await pool.query(
+        `
+        UPDATE updates
+        SET
+            title = $2,
+            slug = $3,
+            category = $4,
+            summary = $5,
+            content = $6,
+            image_url = $7,
+            image_caption = $8,
+            author_name = $9,
+            author_title = $10,
+            featured = $11,
+            published = $12,
+            published_at = $13,
+            updated_by = $14,
+            updated_at = CURRENT_TIMESTAMP
+        WHERE id = $1
+          AND is_archived = FALSE
+        RETURNING *
+        `,
+        [
+            id,
+            title,
+            slug,
+            category,
+            summary,
+            content,
+            imageUrl,
+            imageCaption,
+            authorName,
+            authorTitle,
+            featured,
+            published,
+            publishedAt,
+            updatedBy,
+        ]
+    );
+
+    return result.rows[0];
+}
+
+export async function archiveUpdate(id, archivedBy) {
+    const result = await pool.query(
+        `
+        UPDATE updates
+        SET
+            is_archived = TRUE,
+            archived_at = CURRENT_TIMESTAMP,
+            archived_by = $2,
+            updated_at = CURRENT_TIMESTAMP
+        WHERE id = $1
+          AND is_archived = FALSE
+        RETURNING *
+        `,
+        [id, archivedBy]
+    );
+
+    return result.rows[0];
+}
