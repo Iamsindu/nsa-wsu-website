@@ -1,4 +1,4 @@
-import { createUpdate, getAdminUpdateById, getAllAdminUpdates, getPublishedUpdateBySlug, getPublishedUpdates, updateAdminUpdate } from "../models/updateModel.js"
+import { archiveUpdate, createUpdate, getAdminUpdateById, getAllAdminUpdates, getPublishedUpdateBySlug, getPublishedUpdates, updateAdminUpdate } from "../models/updateModel.js"
 import { uploadImageService } from "../services/imageService.js"
 
 export async function getAllPublishedUpdates(req, res) {
@@ -294,6 +294,49 @@ export async function updateUpdateController(req, res) {
 
     } catch (error) {
         console.error("Update update error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error",
+        });
+    }
+}
+
+export async function archiveUpdateController(req, res) {
+    try {
+        const { id } = req.params;
+
+        const update = await getAdminUpdateById(id);
+
+        if (!update) {
+            return res.status(404).json({
+                success: false,
+                message: "Update not found.",
+            });
+        }
+
+        if (
+            req.admin.role === "CONTENT_MANAGER" &&
+            update.created_by !== req.admin.id
+        ) {
+            return res.status(403).json({
+                success: false,
+                message: "You are not allowed to delete this update.",
+            });
+        }
+
+        const archivedUpdate = await archiveUpdate(
+            id,
+            req.admin.id
+        );
+
+        return res.status(200).json({
+            success: true,
+            message: "Update deleted successfully.",
+            data: archivedUpdate,
+        });
+    } catch (error) {
+        console.error("Delete update error:", error);
 
         return res.status(500).json({
             success: false,

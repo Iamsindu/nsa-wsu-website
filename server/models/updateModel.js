@@ -20,6 +20,7 @@ export async function getPublishedUpdates() {
             updated_at
         FROM updates
         WHERE published = TRUE
+          AND is_archived = FALSE
         ORDER BY published_at DESC NULLS LAST, created_at DESC
     `)
 
@@ -198,6 +199,25 @@ export async function updateAdminUpdate(
             publishedAt,
             updatedBy,
         ]
+    );
+
+    return result.rows[0];
+}
+
+export async function archiveUpdate(id, archivedBy) {
+    const result = await pool.query(
+        `
+        UPDATE updates
+        SET
+            is_archived = TRUE,
+            archived_at = CURRENT_TIMESTAMP,
+            archived_by = $2,
+            updated_at = CURRENT_TIMESTAMP
+        WHERE id = $1
+          AND is_archived = FALSE
+        RETURNING *
+        `,
+        [id, archivedBy]
     );
 
     return result.rows[0];

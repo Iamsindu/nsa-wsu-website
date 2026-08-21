@@ -1,6 +1,7 @@
 import express from "express";
 
 import {
+    archiveUpdateController,
     createUpdateController,
     getAdminUpdateByIdController,
     getAllAdminUpdatesController,
@@ -39,6 +40,17 @@ router.put(
     authorizeRoles("SUPER_ADMIN", "ADMIN", "CONTENT_MANAGER"),
     uploadImage.single("image"),
     updateUpdateController
+);
+
+router.delete(
+    "/:id",
+    authenticateAdmin,
+    authorizeRoles(
+        "SUPER_ADMIN",
+        "ADMIN",
+        "CONTENT_MANAGER"
+    ),
+    archiveUpdateController
 );
 
 export default router;

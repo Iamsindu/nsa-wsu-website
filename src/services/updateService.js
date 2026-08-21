@@ -53,3 +53,9 @@ export async function updateUpdate(id, newsData) {
         body: data,
     });
 }
+
+export function deleteUpdate(id) {
+    return request(`/admin/updates/${id}`, {
+        method: "DELETE",
+    });
+}
