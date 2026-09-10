@@ -64,28 +64,6 @@ function AdminUpdateForm() {
         published: update?.published || false,
     });
 
-    // const formik = useFormik({
-    //     initialValues: {
-    //         title: "",
-    //         category: "",
-    //         summary: "",
-    //         content: "",
-    //         image: null,
-    //         imageCaption: "",
-    //         authorName: "",
-    //         authorTitle: "",
-    //         featured: false,
-    //         published: false,
-    //     },
-
-    //     validationSchema: updateSchema,
-
-    //     onSubmit: async (values) => {
-    //         await createUpdate(values);
-    //         navigate(ADMIN_UPDATES);
-    //     },
-    // });
-
     const formik = useFormik({
         initialValues: getUpdateValues(update),
         enableReinitialize: true,

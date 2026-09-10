@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { upcomingDeadlines } from "../data/updates";
 import "../styles/Updates.css";
 import { getCurrentDate } from "../utils/date";
 import { useEffect, useState } from "react";
@@ -127,6 +126,27 @@ function Updates() {
         );
     }
 
+
+    const upcomingDeadlines = [
+        {
+            id: 1,
+            month: "SEP",
+            day: "20",
+            title: "Performer Registration Deadline",
+        },
+        {
+            id: 2,
+            month: "OCT",
+            day: "10",
+            title: "Volunteer Registration Deadline",
+        },
+        {
+            id: 3,
+            month: "OCT",
+            day: "20",
+            title: "Dashain 2083 Celebration",
+        },
+    ];
 
     if (error) {
         return (

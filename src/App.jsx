@@ -17,26 +17,34 @@ import PublicLayout from "./components/PublicLayout"
 import RoleProtectedRoute from "./components/admin/RoleProtectedRoute"
 import ManageUpdates from "./pages/admin/ManageUpdates"
 import AdminUpdateForm from "./pages/admin/AdminUpdateForm"
+import EventList from "./pages/admin/EventList"
 import ManageTeam from "./pages/admin/ManageTeam"
 import {
   ABOUT,
   ADMIN,
   ADMIN_DASHBOARD,
+  ADMIN_EVENTS,
+  ADMIN_EVENTS_NEW,
   ADMIN_LOGIN,
   ADMIN_TEAM,
   ADMIN_UPDATE_NEW,
   ADMIN_UPDATES,
   CONSTITUTION,
   CONTACT,
+  DASHAIN,
   EVENT_DETAILS,
   EVENTS,
   HOME,
+  NAYABARSHA,
   TEAM,
   UPDATE_DETAILS,
   UPDATES
 } from "./constants/route"
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AdminEventForm from "./pages/admin/AdminEventForm"
+import Dashain from "./pages/Dashain"
+import NayaBarsha from "./pages/Nayabarsha"
 
 function App() {
   return (
@@ -53,6 +61,8 @@ function App() {
           <Route path={UPDATE_DETAILS} element={<NewsDetail />} />
           <Route path={EVENTS} element={<Events />} />
           <Route path={EVENT_DETAILS} element={<EventDetail />} />
+          <Route path={DASHAIN} element={<Dashain />} />
+          <Route path={NAYABARSHA} element={<NayaBarsha />} />
           <Route path={CONTACT} element={<Contact />} />
         </Route>
 
@@ -66,14 +76,21 @@ function App() {
           }
         >
           <Route path={ADMIN_DASHBOARD} element={<AdminDashboard />} />
+
           <Route path={ADMIN_UPDATES} element={<ManageUpdates />} />
           <Route path={ADMIN_UPDATE_NEW} element={<AdminUpdateForm />} />
-
-
           <Route
             path="updates/:id/edit"
             element={<AdminUpdateForm />}
           />
+
+          <Route path={ADMIN_EVENTS} element={<EventList />} />
+          <Route path={ADMIN_EVENTS_NEW} element={<AdminEventForm />} />
+          <Route
+            path="events/:id/edit"
+            element={<AdminEventForm />}
+          />
+
           <Route
             path={ADMIN_TEAM}
             element={
@@ -83,7 +100,6 @@ function App() {
             }
           />
 
-          {/* <Route path="events" element={<ManageEvents />} /> */}
           {/* <Route path="gallery" element={<ManageGallery />} /> */}
           {/* <Route path="team" element={<ManageTeam />} /> */}
           {/* <Route path="constitution" element={<ManageConstitution />} /> */}

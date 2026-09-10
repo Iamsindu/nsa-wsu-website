@@ -6,16 +6,7 @@ import {
     getUpdates,
 } from "../services/updateService";
 import { UPDATES } from "../constants/route";
-import { truncateText } from "../constants/common";
-
-
-export function formatDate(date) {
-    return new Date(date).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    });
-}
+import { formatDate } from "../constants/common";
 
 function NewsDetail() {
     const { slug } = useParams();

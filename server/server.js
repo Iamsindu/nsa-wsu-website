@@ -6,7 +6,9 @@ import cookieParser from "cookie-parser";
 import { pool } from "./config/db.js"
 import authRoutes from "./routes/authRoutes.js"
 import updateRoutes from "./routes/updateRoutes.js"
+import eventRoutes from "./routes/eventRoutes.js"
 import adminUpdateRoutes from "./routes/adminUpdateRoutes.js"
+import adminEventRoutes from "./routes/adminEventRoutes.js"
 
 const app = express()
 const PORT = process.env.PORT || 5050
@@ -46,7 +48,9 @@ app.get("/api/health", async (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/updates", updateRoutes);
+app.use("/api/events", eventRoutes);
 app.use("/api/admin/updates", adminUpdateRoutes);
+app.use("/api/admin/events", adminEventRoutes);
 
 app.use((req, res) => {
     res.status(404).json({
