@@ -1,175 +1,378 @@
 import { Link, useParams } from "react-router-dom";
-import { signatureEvents } from "../data/eventsData"
+import { useEffect, useState } from "react";
 import "../styles/EventDetail.css";
 import { EVENTS } from "../constants/route";
+import {
+    getEvents,
+    getEventsBySlug,
+} from "../services/eventService";
+
 
 function formatEventDate(date) {
-    return new Date(`${date}T00:00:00`).toLocaleDateString("en-US", {
-        weekday: "long",
-        month: "long",
-        day: "numeric",
-        year: "numeric"
-    });
+    if (!date) return "";
+    return new Date(date).toLocaleDateString(
+        "en-US",
+        {
+            weekday: "long",
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+        }
+    );
 }
 
 function EventDetail() {
     const { slug } = useParams();
 
-    const event = signatureEvents.find((item) => item.slug === slug);
+    const [event, setEvent] = useState(null);
+    const [otherEvents, setOtherEvents] = useState([]);
 
-    if (!event) {
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+
+
+    useEffect(() => {
+        async function loadEvent() {
+            try {
+                setLoading(true);
+
+                const eventData =
+                    await getEventsBySlug(slug);
+
+                const allEvents =
+                    await getEvents();
+
+                setEvent(eventData);
+
+                const filteredEvents = allEvents
+                    .filter(
+                        (item) =>
+                            item.slug !== slug
+                    )
+                    .slice(0, 3);
+
+                setOtherEvents(filteredEvents);
+
+            } catch (error) {
+                console.error(
+                    "Failed to load event:",
+                    error
+                );
+
+                setError(
+                    "The event you are looking for does not exist."
+                );
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        loadEvent();
+    }, [slug]);
+
+
+    if (loading) {
         return (
             <main className="event-detail-not-found">
-                <h1>Event Not Found</h1>
-                <p>The event you are looking for does not exist.</p>
-
-                <Link to={EVENTS}>
-                    Back to Events
-                </Link>
+                <p>Loading event...</p>
             </main>
         );
     }
 
-    const otherEvents = signatureEvents
-        .filter((item) => item.slug !== event.slug)
-        .slice(0, 3);
+
+    if (error || !event) {
+        return (
+            <main className="event-detail-not-found">
+
+                <h1>Event Not Found</h1>
+
+                <p>
+                    {error ||
+                        "The event you are looking for does not exist."}
+                </p>
+
+                <Link to={EVENTS}>
+                    Back to Events
+                </Link>
+
+            </main>
+        );
+    }
+
 
     return (
         <main className="event-detail-page">
+
             <div className="event-detail-container">
-                <Link to={EVENTS} className="event-detail-back">
+
+                <Link
+                    to={EVENTS}
+                    className="event-detail-back"
+                >
                     ← Back to Events
                 </Link>
 
-                <div className="event-detail-layout">
-                    <article className="event-detail-main">
-                        <header className="event-detail-header">
-                            <span className="event-detail-category">
-                                {event.category}
-                            </span>
 
-                            <h1>{event.title}</h1>
+                <div className="event-detail-layout">
+
+
+                    {/* MAIN CONTENT */}
+
+                    <article className="event-detail-main">
+
+
+                        {/* HEADER */}
+
+                        <header className="event-detail-header">
+
+                            {event.recurring_event && (
+                                <span className="event-detail-category">
+                                    Signature Event
+                                </span>
+                            )}
+
+                            <h1>
+                                {event.title}
+                            </h1>
 
                             <p className="event-detail-intro">
-                                {event.shortDescription}
+                                {event.summary}
                             </p>
+
                         </header>
 
-                        {event.image && (
+
+                        {/* IMAGE */}
+
+                        {event.image_url && (
+
                             <figure className="event-detail-image">
-                                <img src={event.image} alt={event.title} />
+
+                                <img
+                                    src={event.image_url}
+                                    alt={
+                                        event.image_caption ||
+                                        event.title
+                                    }
+                                />
+
+                                {event.image_caption && (
+                                    <figcaption>
+                                        {event.image_caption}
+                                    </figcaption>
+                                )}
+
                             </figure>
+
                         )}
 
+
+                        {/* ABOUT */}
+
                         <section className="event-detail-content">
-                            <h2>About This Event</h2>
 
-                            {event.description && <p>{event.description}</p>}
+                            <h2>
+                                About This Event
+                            </h2>
 
-                            {event.details?.map((paragraph, index) => (
-                                <p key={index}>{paragraph}</p>
-                            ))}
+                            {event.description &&
+                                event.description
+                                    .split("\n")
+                                    .filter(
+                                        (paragraph) =>
+                                            paragraph.trim() !== ""
+                                    )
+                                    .map(
+                                        (paragraph, index) => (
+                                            <p key={index}>
+                                                {paragraph}
+                                            </p>
+                                        )
+                                    )}
+
                         </section>
 
-                        {(event.registrationLink ||
-                            event.performerLink ||
-                            event.volunteerLink) && (
-                                <section className="event-action-section">
-                                    <h2>Get Involved</h2>
 
-                                    <div className="event-action-buttons">
-                                        {event.registrationLink && (
-                                            <a
-                                                href={event.registrationLink}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                                className="event-primary-button"
-                                            >
-                                                Register for Event
-                                            </a>
-                                        )}
+                        {/* EXTERNAL LINK */}
 
-                                        {event.performerLink && (
-                                            <a
-                                                href={event.performerLink}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                                className="event-secondary-button"
-                                            >
-                                                Performer Registration
-                                            </a>
-                                        )}
+                        {event.external_link && (
 
-                                        {event.volunteerLink && (
-                                            <a
-                                                href={event.volunteerLink}
-                                                target="_blank"
-                                                rel="noreferrer"
-                                                className="event-secondary-button"
-                                            >
-                                                Volunteer Registration
-                                            </a>
-                                        )}
-                                    </div>
-                                </section>
-                            )}
+                            <section className="event-action-section">
+
+                                <h2>
+                                    Learn More
+                                </h2>
+
+                                <div className="event-action-buttons">
+
+                                    <a
+                                        href={event.external_link}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="event-primary-button"
+                                    >
+                                        Visit Related Link
+                                    </a>
+
+                                </div>
+
+                            </section>
+
+                        )}
+
                     </article>
 
+
+                    {/* SIDEBAR */}
+
                     <aside className="event-detail-sidebar">
+
+
+                        {/* EVENT INFORMATION */}
+
                         <div className="event-information-card">
-                            <h2>Program Overview</h2>
 
-                            <div className="event-information-item">
-                                <span>Semester</span>
-                                <strong>{event.season}</strong>
-                            </div>
+                            <h2>
+                                Event Information
+                            </h2>
 
-                            <div className="event-information-item">
-                                <span>Audience</span>
-                                <strong>Everyone at WSU</strong>
-                            </div>
+
+                            {event.event_date && (
+                                <div className="event-information-item">
+
+                                    <span>
+                                        Date
+                                    </span>
+
+                                    <strong>
+                                        {formatEventDate(
+                                            event.event_date
+                                        )}
+                                    </strong>
+
+                                </div>
+                            )}
+
+
+                            {event.location && (
+                                <div className="event-information-item">
+
+                                    <span>
+                                        Location
+                                    </span>
+
+                                    <strong>
+                                        {event.location}
+                                    </strong>
+
+                                </div>
+                            )}
+
+
+                            {event.recurring_event && (
+                                <div className="event-information-item">
+
+                                    <span>
+                                        Signature Event
+                                    </span>
+
+                                    <strong>
+                                        {event.recurring_event ===
+                                            "naya-barsha"
+                                            ? "Naya Barsha"
+                                            : event.recurring_event ===
+                                                "dashain"
+                                                ? "Dashain"
+                                                : event.recurring_event}
+                                    </strong>
+
+                                </div>
+                            )}
+
                         </div>
+
+
+                        {/* WHAT TO EXPECT */}
+
                         <div className="event-information-card">
-                            <h2>WHAT TO EXPECT</h2>
+
+                            <h2>
+                                WHAT TO EXPECT
+                            </h2>
 
                             <div className="event-information-item">
-                                Cultural performances
-                            </div>
-
-                            <div className="event-information-item">
-                                Traditional food
+                                Cultural experiences
                             </div>
 
                             <div className="event-information-item">
                                 Community gathering
                             </div>
+
+                            <div className="event-information-item">
+                                Nepali culture and traditions
+                            </div>
+
                         </div>
 
+
+                        {/* OTHER EVENTS */}
+
                         {otherEvents.length > 0 && (
+
                             <div className="other-events-card">
-                                <h2>Other Events</h2>
 
-                                {otherEvents.map((otherEvent) => (
-                                    <article
-                                        className="other-event-item"
-                                        key={otherEvent.id}
-                                    >
-                                        <span>{otherEvent.category}</span>
+                                <h2>
+                                    Other Events
+                                </h2>
 
-                                        <h3>
-                                            <Link to={`/events/${otherEvent.slug}`}>
-                                                {otherEvent.title}
-                                            </Link>
-                                        </h3>
 
-                                        <p>{formatEventDate(otherEvent.date)}</p>
-                                    </article>
-                                ))}
+                                {otherEvents.map(
+                                    (otherEvent) => (
+
+                                        <article
+                                            className="other-event-item"
+                                            key={otherEvent.id}
+                                        >
+
+                                            {otherEvent.recurring_event && (
+                                                <span>
+                                                    Signature Event
+                                                </span>
+                                            )}
+
+                                            <h3>
+
+                                                <Link
+                                                    to={`/events/${otherEvent.slug}`}
+                                                >
+                                                    {otherEvent.title}
+                                                </Link>
+
+                                            </h3>
+
+                                            {otherEvent.event_date && (
+                                                <p>
+                                                    {formatEventDate(
+                                                        otherEvent.event_date
+                                                    )}
+                                                </p>
+                                            )}
+
+                                        </article>
+
+                                    )
+                                )}
+
                             </div>
+
                         )}
+
                     </aside>
+
                 </div>
+
             </div>
+
         </main>
     );
 }

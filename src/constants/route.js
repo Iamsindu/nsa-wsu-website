@@ -8,6 +8,8 @@ export const UPDATES = "/updates";
 export const UPDATE_DETAILS = "/updates/:slug";
 
 export const EVENTS = "/events";
+export const DASHAIN = "/events/dashain";
+export const NAYABARSHA = "/events/naya-barsha";
 export const EVENT_DETAILS = "/events/:slug";
 
 export const ADMIN = "/admin";

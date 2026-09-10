@@ -83,7 +83,6 @@ function AdminEventForm() {
         onSubmit: async (values) => {
             if (isEditMode) {
                 await updateEvent(id, values);
-                console.log("Edit event:", id, values);
                 toast.success("Event updated successfully");
             } else {
                 await createEvent(values);

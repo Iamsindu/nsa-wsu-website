@@ -31,9 +31,11 @@ import {
   ADMIN_UPDATES,
   CONSTITUTION,
   CONTACT,
+  DASHAIN,
   EVENT_DETAILS,
   EVENTS,
   HOME,
+  NAYABARSHA,
   TEAM,
   UPDATE_DETAILS,
   UPDATES
@@ -41,6 +43,8 @@ import {
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AdminEventForm from "./pages/admin/AdminEventForm"
+import Dashain from "./pages/Dashain"
+import NayaBarsha from "./pages/Nayabarsha"
 
 function App() {
   return (
@@ -57,6 +61,8 @@ function App() {
           <Route path={UPDATE_DETAILS} element={<NewsDetail />} />
           <Route path={EVENTS} element={<Events />} />
           <Route path={EVENT_DETAILS} element={<EventDetail />} />
+          <Route path={DASHAIN} element={<Dashain />} />
+          <Route path={NAYABARSHA} element={<NayaBarsha />} />
           <Route path={CONTACT} element={<Contact />} />
         </Route>
 

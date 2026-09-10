@@ -26,8 +26,6 @@ function AdminLogin() {
             const response = await login(email, password);
             await checkAuth();
             navigate(ADMIN_DASHBOARD, { replace: true });
-
-            console.log("Login response:", response);
         } catch (error) {
             setError(error.message);
         } finally {
