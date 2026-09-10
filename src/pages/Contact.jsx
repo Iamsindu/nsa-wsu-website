@@ -28,6 +28,14 @@ function Contact() {
                 </Card>
 
                 <Card className="contact-card">
+                    <h2>Forms</h2>
+
+                    <a href="https://forms.gle/491MqeU1enDCF2K86" target="_blank" style={{ textDecoration: "none" }}>Program Suggestion Form</a> <br /><br />
+                    <a href="https://forms.gle/dBsDGVaive1gaHTQ9" target="_blank" style={{ textDecoration: "none" }}>Dashain '83 Volunteer Form</a> <br /><br />
+                    <a href="https://forms.gle/sKqicYQ9C7HwJXuK6" target="_blank" style={{ textDecoration: "none" }}>Dashain '83 Performers Form</a>
+                </Card>
+
+                <Card className="contact-card">
                     <h2>Stay Connected</h2>
 
                     <a

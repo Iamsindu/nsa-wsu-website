@@ -135,3 +135,18 @@
     font-size: 28px;
   }
 }
+
+.event-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 18px;
+    color: #05633a;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.event-card-link:hover {
+    color: #d32245;
+}

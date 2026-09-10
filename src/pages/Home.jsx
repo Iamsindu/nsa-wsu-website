@@ -1,8 +1,58 @@
 import { Link } from "react-router-dom"
 import "../styles/Home.css"
-import { pastEvents } from "../data/eventsData";
+// import { pastEvents } from "../data/eventsData";
+import { ABOUT, EVENTS } from "../constants/route";
+import { getEvents } from "../services/eventService";
+import { useEffect, useState } from "react";
+import { formatDate } from "../constants/common";
 
 function Home() {
+    const [events, setEvents] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        async function loadEvents() {
+            try {
+                const data = await getEvents();
+                setEvents(data);
+            } catch (error) {
+                console.error("Failed to load events:", error);
+                setError("Unable to load events.");
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        loadEvents();
+    }, []);
+
+    // -----------------------------
+    // TODAY
+    // -----------------------------
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const pastEvents = events
+        .filter((event) => {
+            if (!event.event_date) return false;
+
+            // Signature events are handled separately
+            if (event.recurring_event) return false;
+
+            const eventDate = new Date(
+                event.event_date
+            );
+
+            return eventDate < today;
+        })
+        .sort(
+            (a, b) =>
+                new Date(b.event_date) -
+                new Date(a.event_date)
+        );
+
     return (
         <main className="home-page">
             <section className="hero-section">
@@ -26,11 +76,11 @@ function Home() {
                     </p>
 
                     <div className="hero-buttons">
-                        <Link to="/about" className="primary-btn">
+                        <Link to={ABOUT} className="primary-btn">
                             Learn More
                         </Link>
 
-                        <Link to="/events" className="secondary-btn">
+                        <Link to={EVENTS} className="secondary-btn">
                             View Events
                         </Link>
                     </div>
@@ -92,7 +142,7 @@ function Home() {
                     {pastEvents?.map((event) => (
                         <article className="featured-event-card" key={event.title}>
                             <img
-                                src={event.image}
+                                src={event.image_url}
                                 alt={event.title}
                                 className="featured-event-image"
                             />
@@ -101,16 +151,18 @@ function Home() {
                                 <h3>{event.title}</h3>
 
                                 <p className="featured-event-date">
-                                    {event.date} | {event.location}
+                                    {formatDate(
+                                        event.event_date
+                                    )} | {event.location}
                                 </p>
 
 
                                 <p className="featured-event-description">
-                                    {event.description}
+                                    {event.summary}
                                 </p>
 
                                 <Link
-                                    to="/events"
+                                    to={EVENTS}
                                     className="home-about-link"
                                 >
                                     Learn More →
@@ -124,11 +176,7 @@ function Home() {
             <section className="journey">
                 <div className="journey-content">
                     <div className="journey-text">
-
-                        <p className="section-label">
-                            JOIN OUR COMMUNITY
-                        </p>
-
+                        <span className="section-label">JOIN OUR COMMUNITY</span>
                         <h2>Your Journey Starts Here</h2>
 
                         <p>
@@ -145,7 +193,7 @@ function Home() {
                         </p>
 
                         <div className="journey-buttons">
-                            <a href="#" className="primary-btn">
+                            <a href="https://wright.campuslabs.com/engage/organization/nsa" target="_blank" className="primary-btn">
                                 Become a Member
                             </a>
 

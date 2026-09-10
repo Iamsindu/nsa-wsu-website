@@ -40,15 +40,6 @@ function Team() {
             </section>
 
             <section className="team-section">
-                <h2>Advisor</h2>
-                <div className="team-grid advisor-grid">
-                    {advisor.map((member) => (
-                        <TeamCard key={member.name} member={member} />
-                    ))}
-                </div>
-            </section>
-
-            <section className="team-section">
                 <h2>Executive Committee</h2>
                 <div className="team-grid">
                     {executiveTeam.map((member) => (
@@ -67,13 +58,22 @@ function Team() {
             </section>
 
             <section className="team-section">
-                <h2>Founding Team</h2>
+                <h2>Advisor</h2>
+                <div className="team-grid advisor-grid">
+                    {advisor.map((member) => (
+                        <TeamCard key={member.name} member={member} />
+                    ))}
+                </div>
+            </section>
+
+            {/* <section className="team-section">
+                <h2>Past Board Members</h2>
                 <div className="team-grid advisor-grid">
                     {foundingMembers.map((member) => (
                         <TeamCard key={member.name} member={member} />
                     ))}
                 </div>
-            </section>
+            </section> */}
         </main>
     )
 }

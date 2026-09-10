@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { NavLink } from "react-router-dom"
 import "../styles/Navbar.css"
+import { ABOUT, CONSTITUTION, CONTACT, EVENTS, HOME, TEAM, UPDATES } from "../constants/route"
 
 function Navbar() {
     const [isOpen, setIsOpen] = useState(false)
@@ -27,12 +28,13 @@ function Navbar() {
             </button>
 
             <div className={`nav-links ${isOpen ? "open" : ""}`}>
-                <NavLink to="/" end onClick={closeMenu}>Home</NavLink>
-                <NavLink to="/about" onClick={closeMenu}>About</NavLink>
-                <NavLink to="/constitution" onClick={closeMenu}>Constitution</NavLink>
-                <NavLink to="/team" onClick={closeMenu}>Team</NavLink>
-                <NavLink to="/events" onClick={closeMenu}>Events</NavLink>
-                <NavLink to="/contact" onClick={closeMenu}>Contact</NavLink>
+                <NavLink to={HOME} end onClick={closeMenu}>Home</NavLink>
+                <NavLink to={ABOUT} onClick={closeMenu}>About</NavLink>
+                <NavLink to={TEAM} onClick={closeMenu}>Team</NavLink>
+                <NavLink to={EVENTS} onClick={closeMenu}>Events</NavLink>
+                <NavLink to={UPDATES} onClick={closeMenu}>Updates</NavLink>
+                <NavLink to={CONSTITUTION} onClick={closeMenu}>Constitution</NavLink>
+                <NavLink to={CONTACT} onClick={closeMenu}>Contact</NavLink>
             </div>
         </nav>
     )
