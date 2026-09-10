@@ -8,6 +8,7 @@ import {
     getEventBySlug,
     updateAdminEvent,
 } from "../models/eventModel.js";
+import { uploadImageService } from "../services/imageService.js";
 
 
 export async function getAllPublishedEvents(req, res) {
@@ -159,10 +160,15 @@ export async function createEventController(req, res) {
         }
 
         // Cover image
-        const imageUrl = req.file
-            ? req.file.path
-            : null;
+        let imageUrl = null;
+        if (req.file) {
+            const uploadedImage = await uploadImageService(
+                req.file.buffer,
+                "nsa-wsu/events"
+            );
 
+            imageUrl = uploadedImage.secure_url;
+        }
 
         // Only set published_at when publishing
         const publishedAt = isPublished
@@ -313,10 +319,15 @@ export async function updateAdminEventController(req, res) {
             .replace(/\s+/g, "-")
             .replace(/-+/g, "-");
 
-        const imageUrl = req.file
-            ? req.file.path
-            : existingEvent.image_url;
+        let imageUrl = existingEvent.image_url;
+        if (req.file) {
+            const uploadedImage = await uploadImageService(
+                req.file.buffer,
+                "nsa-wsu/events"
+            );
 
+            imageUrl = uploadedImage.secure_url;
+        }
         let publishedAt = existingEvent.published_at;
 
         if (isPublished && !existingEvent.published) {
