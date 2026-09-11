@@ -16,17 +16,17 @@ export function AuthProvider({ children }) {
     const [admin, setAdmin] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    async function checkAuth() {
+    const checkAuth = useCallback (async () => {
+        setLoading(true);
         try {
             const response = await getCurrentAdmin();
-
             setAdmin(response.admin);
         } catch (error) {
             setAdmin(null);
         } finally {
             setLoading(false);
         }
-    }
+    }, []);
 
     async function logout() {
         try {
@@ -36,16 +36,6 @@ export function AuthProvider({ children }) {
             console.error("Logout error:", error);
         }
     }
-
-    useEffect(() => {
-        const isAdminRoute = window.location.pathname.startsWith("/admin");
-
-        if (isAdminRoute) {
-            checkAuth();
-        } else {
-            setLoading(false);
-        }
-    }, []);
 
     return (
         <AuthContext.Provider

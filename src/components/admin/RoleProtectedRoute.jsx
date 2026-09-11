@@ -3,7 +3,11 @@ import { useAuth } from "../../context/AuthContext.jsx";
 import { ADMIN_DASHBOARD, ADMIN_LOGIN } from "../../constants/route.js";
 
 function RoleProtectedRoute({ allowedRoles, children }) {
-    const { admin, loading } = useAuth();
+    const { admin, loading, checkAuth } = useAuth();
+
+    useEffect(() => {
+        checkAuth();
+    }, [checkAuth]);
 
     if (loading) {
         return <p>Loading...</p>;
