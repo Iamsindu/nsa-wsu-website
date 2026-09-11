@@ -60,10 +60,11 @@ export async function loginAdmin(req, res) {
             }
         );
 
+        const isProduction = process.env.NODE_ENV === "production";
         res.cookie("authToken", token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "lax",
+            secure: isProduction,
+            sameSite: isProduction ? "none" : "lax",
             maxAge: 24 * 60 * 60 * 1000,
         });
 
